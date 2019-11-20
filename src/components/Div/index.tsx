@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 import { Spacing } from 'design'
+import { ReactNode } from 'react'
+import styled from 'styled-components'
 
 interface Props {
   className?: string

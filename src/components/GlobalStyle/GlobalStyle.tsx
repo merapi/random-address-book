@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
   * {
-    font-family: Public Sans;
+    font-family: Public Sans, sans-serif;;
   }
 
   body {

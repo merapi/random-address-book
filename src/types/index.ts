@@ -9,3 +9,5 @@ export interface User {
   }
   email: string
 }
+
+export type Nationality = 'CH' | 'ES' | 'FR' | 'GB'

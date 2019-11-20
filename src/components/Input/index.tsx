@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default styled.input<Props>`
-  width: 100%;
+  width: ${({ width = 320 }) => (width === 'auto' ? width : `${width}px`)};
   max-width: 320px;
   border: 1px solid #c9c9c9;
   font-size: ${FontSize.Base}px;
@@ -16,6 +16,5 @@ export default styled.input<Props>`
   box-shadow: 0 6px 10px -8px rgba(0, 0, 0, 0.2);
   &:focus {
     border-color: ${Color.Primary};
-    /* border-color: #9c9c9c; */
   }
 `

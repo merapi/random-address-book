@@ -1,5 +1,6 @@
 import Input from 'components/Input'
 import { Spacing } from 'design'
+import { A } from 'hookrouter'
 import React from 'react'
 import styled from 'styled-components'
 import SettingsIcon from './SettingsIcon'
@@ -10,7 +11,9 @@ interface Props {
 
 const BareSearchBar = ({ className }: Props) => (
   <div className={className}>
-    <SettingsIcon onClick={() => alert('settings')} />
+    <A href="/settings">
+      <SettingsIcon />
+    </A>
     <Input placeholder="Type to search" />
   </div>
 )
