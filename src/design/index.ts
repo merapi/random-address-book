@@ -10,6 +10,7 @@ export enum Spacing {
 
 export enum Size {
   CardGap = Spacing.Large,
+  RoundedCorner = Spacing.Small,
 }
 
 export enum FontSize {

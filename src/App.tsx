@@ -7,6 +7,7 @@ import { User } from 'types'
 import Loader from 'components/Loader'
 import EndOfData from 'components/EndOfData'
 import Row from 'components/Row'
+import SearchBar from 'components/SearchBar'
 import { FlexAlign } from 'design'
 
 const App: React.FC = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyle />
       <Content>
+        <SearchBar />
         <UserCardList>
           {list.map(user => (
             <UserCard key={user.email} onClick={onUserClick(user)} {...user} />

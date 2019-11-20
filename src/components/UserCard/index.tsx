@@ -40,7 +40,7 @@ export default styled(BareUserCard)`
     box-shadow: 0 12px 16px -8px rgba(0, 0, 0, 0.22);
     transform: scale(1.1);
   }
-  border-radius: 8px;
+  border-radius: ${Size.RoundedCorner}px;
   margin: 0 ${Size.CardGap}px ${Size.CardGap}px 0;
   ${({ onClick }) => (typeof onClick === 'function' ? `cursor: pointer` : ``)}
 `
