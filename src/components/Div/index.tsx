@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { Spacing } from 'design'
 
 interface Props {
   className?: string
   children?: ReactNode
-  marginLeft?: 0 | 8 | 16 | 32 | 64
+  marginLeft?: Spacing
 }
 
 export default styled.div<Props>`

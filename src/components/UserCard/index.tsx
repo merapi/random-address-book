@@ -5,6 +5,7 @@ import Row from 'components/Row'
 import Title from 'components/Title'
 import Div from 'components/Div'
 import { User } from 'types'
+import { Spacing, FontSize, Size, Color } from 'design'
 
 interface Props {
   className?: string
@@ -15,11 +16,11 @@ const BareUserCard = ({ className, onClick, picture, name, email }: Props & User
   <div className={className} onClick={onClick}>
     <Row alignItems="center">
       <Avatar width={48} src={picture.thumbnail} />
-      <Div marginLeft={16}>
-        <Title marginBottom={4}>
+      <Div marginLeft={Spacing.Base}>
+        <Title marginBottom={Spacing.Tiny}>
           {name.first} {name.last}
         </Title>
-        <Title fontSize={14} color={'#0C9E88'}>
+        <Title fontSize={FontSize.Smaller} color={Color.Primary}>
           {email}
         </Title>
       </Div>
@@ -31,7 +32,7 @@ export default styled(BareUserCard)`
   display: flex;
   flex-shrink: 0;
   width: 360px;
-  padding: 24px;
+  padding: ${Spacing.Medium}px;
   background: white;
   box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.22);
   transition: all 0.1s;
@@ -40,6 +41,6 @@ export default styled(BareUserCard)`
     transform: scale(1.1);
   }
   border-radius: 8px;
-  margin: 0 32px 32px 0;
+  margin: 0 ${Size.CardGap}px ${Size.CardGap}px 0;
   ${({ onClick }) => (typeof onClick === 'function' ? `cursor: pointer` : ``)}
 `

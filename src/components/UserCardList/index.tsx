@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { Spacing, Size } from 'design'
 
 interface Props {
   className?: string
@@ -9,7 +10,7 @@ interface Props {
 const BareUserCardList = ({ className, children }: Props) => <div className={className}>{children}</div>
 
 export default styled(BareUserCardList)`
-  padding: 32px 0 0 32px;
+  padding: ${Size.CardGap}px 0 0 ${Size.CardGap}px;
 
   display: flex;
   flex-wrap: wrap;
