@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { FlexAlign } from 'design'
 
 interface Props {
   className?: string
   children: ReactNode
-  alignItems?: 'flex-start' | 'center' | 'flex-end'
-  justifyContent?: 'flex-start' | 'center' | 'flex-end'
+  alignItems?: FlexAlign | undefined
+  justifyContent?: FlexAlign | undefined
 }
 
 const BareRow = ({ className, children }: Props) => <div className={className}>{children}</div>

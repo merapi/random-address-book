@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Spacing, FontSize } from 'design'
+import { Spacing, FontSize, FlexAlign } from 'design'
 
 interface Props {
   className?: string
@@ -9,7 +9,7 @@ interface Props {
   fontSize?: FontSize
   marginBottom?: Spacing
   marginLeft?: Spacing
-  justifyContent?: 'flex-start' | 'center' | 'flex-end'
+  justifyContent?: FlexAlign | undefined
 }
 
 const BareTitle = ({ className, children }: Props) => <div className={className}>{children}</div>

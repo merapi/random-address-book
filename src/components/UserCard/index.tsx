@@ -5,7 +5,7 @@ import Row from 'components/Row'
 import Title from 'components/Title'
 import Div from 'components/Div'
 import { User } from 'types'
-import { Spacing, FontSize, Size, Color } from 'design'
+import { Spacing, FontSize, Size, Color, FlexAlign } from 'design'
 
 interface Props {
   className?: string
@@ -14,7 +14,7 @@ interface Props {
 
 const BareUserCard = ({ className, onClick, picture, name, email }: Props & User) => (
   <div className={className} onClick={onClick}>
-    <Row alignItems="center">
+    <Row alignItems={FlexAlign.Center}>
       <Avatar width={48} src={picture.thumbnail} />
       <Div marginLeft={Spacing.Base}>
         <Title marginBottom={Spacing.Tiny}>

@@ -21,3 +21,9 @@ export enum FontSize {
 export enum Color {
   Primary = '#0C9E88',
 }
+
+export enum FlexAlign {
+  Start = 'flex-start',
+  Center = 'center',
+  End = 'flex-end',
+}
