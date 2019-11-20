@@ -21,11 +21,11 @@ const BareSearchBar = ({ className }: Props) => (
 export default styled(BareSearchBar)`
   position: sticky;
   z-index: 1;
-  top: -32px;
+  top: -48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(245, 246, 250, 0.3);
-  backdrop-filter: blur(3px);
-  padding: ${Spacing.Huge}px 0 ${Spacing.Large}px 0;
+  background-color: rgba(245, 246, 250, 0.9);
+  /* backdrop-filter: blur(3px); */
+  padding: ${Spacing.Huge}px 0 16px 0;
 `

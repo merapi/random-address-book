@@ -19,6 +19,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+
+  p {
+    margin: 0 0 1rem 0;
+    line-height: 1.3rem;
+  }
+
 `
 
 export default GlobalStyle

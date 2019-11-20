@@ -29,7 +29,7 @@ const BareSelectNationalities = ({ className, onSubmit }: Props) => {
 
   return (
     <div className={className}>
-      <Title marginBottom={Spacing.Small}>Select nationalities:</Title>
+      <Title marginBottom={Spacing.Base}>Select nationalities:</Title>
       {supportedNationalities.map(nationality => (
         <Option
           key={nationality}
@@ -78,4 +78,8 @@ const Option = styled(BareOption)`
   user-select: none;
 `
 
-export default styled(BareSelectNationalities)``
+export default styled(BareSelectNationalities)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`

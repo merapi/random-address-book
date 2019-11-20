@@ -1,35 +1,27 @@
-import Avatar from 'components/Avatar'
-import Div from 'components/Div'
-import Row from 'components/Row'
-import Title from 'components/Title'
-import { Color, FlexAlign, FontSize, Size, Spacing } from 'design'
-import React, { MouseEvent } from 'react'
+import { Size, Spacing } from 'design'
+import React, { forwardRef, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { User } from 'types'
+import Details from './Details'
 
-interface Props {
+interface BaseProps {
   className?: string
+  style?: any
   onClick?: (event: MouseEvent) => void
 }
 
-const BareUserCard = ({ className, onClick, picture, name, email }: Props & User) => (
-  <div className={className} onClick={onClick}>
-    <Row alignItems={FlexAlign.Center}>
-      {/* <Avatar width={48} src={`${picture.thumbnail}?r=${email}`} /> */}
-      <Avatar width={48} src={picture.thumbnail} />
-      <Div marginLeft={Spacing.Base}>
-        <Title marginBottom={Spacing.Tiny}>
-          {name.first} {name.last}
-        </Title>
-        <Title fontSize={FontSize.Smaller} color={Color.Primary}>
-          {email}
-        </Title>
-      </Div>
-    </Row>
-  </div>
-)
+type Props = BaseProps & User
 
-export default styled(BareUserCard)`
+const BareUserCard = ({ className, onClick, picture, name, email, ...rest }: Props, ref: any) => {
+  const user = { picture, name, email }
+  return (
+    <div className={className} onClick={onClick} ref={ref} {...rest}>
+      <Details {...user} />
+    </div>
+  )
+}
+
+export default styled(forwardRef<HTMLDivElement, Props>(BareUserCard))`
   display: flex;
   flex-shrink: 0;
   width: 360px;
@@ -41,8 +33,9 @@ export default styled(BareUserCard)`
   &:hover {
     box-shadow: 0 12px 16px -8px rgba(0, 0, 0, 0.22);
     transform: scale(1.1);
+    /* height: 200px; */
   }
   border-radius: ${Size.RoundedCorner}px;
   margin: 0 ${Size.CardGap}px ${Size.CardGap}px 0;
-  ${({ onClick }) => (typeof onClick === 'function' ? `cursor: pointer` : ``)}
+  ${({ onClick }) => (typeof onClick === 'function' ? `cursor: zoom-in` : ``)}
 `

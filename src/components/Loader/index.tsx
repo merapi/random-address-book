@@ -1,29 +1,48 @@
+import { Color, Spacing } from 'design'
 import React from 'react'
 import styled from 'styled-components'
-import { Color } from 'design'
 
 interface Props {
   className?: string
+  withOuter?: boolean
 }
 
-const BareLoader = ({ className }: Props) => (
-  <div className={className}>
-    <div className="sk-fading-circle">
-      <div className="sk-circle1 sk-circle"></div>
-      <div className="sk-circle2 sk-circle"></div>
-      <div className="sk-circle3 sk-circle"></div>
-      <div className="sk-circle4 sk-circle"></div>
-      <div className="sk-circle5 sk-circle"></div>
-      <div className="sk-circle6 sk-circle"></div>
-      <div className="sk-circle7 sk-circle"></div>
-      <div className="sk-circle8 sk-circle"></div>
-      <div className="sk-circle9 sk-circle"></div>
-      <div className="sk-circle10 sk-circle"></div>
-      <div className="sk-circle11 sk-circle"></div>
-      <div className="sk-circle12 sk-circle"></div>
+const BareLoader = ({ className, withOuter }: Props) => {
+  const loader = (
+    <div className={className}>
+      <div className="sk-fading-circle">
+        <div className="sk-circle1 sk-circle"></div>
+        <div className="sk-circle2 sk-circle"></div>
+        <div className="sk-circle3 sk-circle"></div>
+        <div className="sk-circle4 sk-circle"></div>
+        <div className="sk-circle5 sk-circle"></div>
+        <div className="sk-circle6 sk-circle"></div>
+        <div className="sk-circle7 sk-circle"></div>
+        <div className="sk-circle8 sk-circle"></div>
+        <div className="sk-circle9 sk-circle"></div>
+        <div className="sk-circle10 sk-circle"></div>
+        <div className="sk-circle11 sk-circle"></div>
+        <div className="sk-circle12 sk-circle"></div>
+      </div>
     </div>
-  </div>
-)
+  )
+  if (withOuter) {
+    return <Outer>{loader}</Outer>
+  } else {
+    return loader
+  }
+}
+
+const Outer = styled.div`
+  padding: ${Spacing.Medium}px;
+  background: white;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.22);
+  transition: all 0.1s;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 export default styled(BareLoader)`
   width: 40px;

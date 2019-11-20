@@ -1,10 +1,11 @@
+import { FlexAlign, FontSize, Spacing } from 'design'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Spacing, FontSize, FlexAlign } from 'design'
 
 interface Props {
   className?: string
   children: ReactNode
+  onClick?: () => void
   color?: string
   fontSize?: FontSize
   marginBottom?: Spacing
@@ -12,7 +13,11 @@ interface Props {
   justifyContent?: FlexAlign | undefined
 }
 
-const BareTitle = ({ className, children }: Props) => <div className={className}>{children}</div>
+const BareTitle = ({ className, children, onClick }: Props) => (
+  <div className={className} onClick={onClick}>
+    {children}
+  </div>
+)
 
 export default styled(BareTitle)`
   font-weight: bold;

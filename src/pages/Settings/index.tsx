@@ -18,7 +18,7 @@ const BareSettings = ({ className }: Props) => {
   return (
     <div className={className}>
       <A style={{ color: Color.Primary }} href="/">
-        <Title marginBottom={Spacing.Large}>Back to search</Title>
+        <Title marginBottom={Spacing.Huge}>Back to search</Title>
       </A>
       <SelectNationalities onSubmit={onNationalitiesChange} />
     </div>
@@ -27,4 +27,8 @@ const BareSettings = ({ className }: Props) => {
 
 export default styled(BareSettings)`
   padding: ${Spacing.Huge}px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
