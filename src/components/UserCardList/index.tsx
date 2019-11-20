@@ -1,6 +1,6 @@
+import { Size } from 'design'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Spacing, Size } from 'design'
 
 interface Props {
   className?: string

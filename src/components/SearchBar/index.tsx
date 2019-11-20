@@ -1,8 +1,8 @@
 import Input from 'components/Input'
-import Row from 'components/Row'
-import { FlexAlign, Spacing } from 'design'
+import { Spacing } from 'design'
 import React from 'react'
 import styled from 'styled-components'
+import SettingsIcon from './SettingsIcon'
 
 interface Props {
   className?: string
@@ -10,13 +10,19 @@ interface Props {
 
 const BareSearchBar = ({ className }: Props) => (
   <div className={className}>
-    <Row justifyContent={FlexAlign.Center}>
-      <Input placeholder="Type to search" />
-    </Row>
+    <SettingsIcon onClick={() => alert('settings')} />
+    <Input placeholder="Type to search" />
   </div>
 )
 
 export default styled(BareSearchBar)`
-  padding: ${Spacing.Large}px;
-  padding-top: ${Spacing.Huge}px;
+  position: sticky;
+  z-index: 1;
+  top: -32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(245, 246, 250, 0.3);
+  backdrop-filter: blur(3px);
+  padding: ${Spacing.Huge}px 0 ${Spacing.Large}px 0;
 `
