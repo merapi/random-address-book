@@ -12,10 +12,18 @@ interface BaseProps {
 
 type Props = BaseProps & User
 
-const BareUserCard = ({ className, onClick, picture, name, email, ...rest }: Props, ref: any) => {
+const BareUserCard = (
+  { className, onClick, picture, name, email, ...rest }: Props,
+  ref: any,
+) => {
   const user = { picture, name, email }
   return (
-    <div className={className} onClick={onClick} ref={ref} {...rest}>
+    <div
+      data-testid={`nat-${rest.nat}`}
+      className={className}
+      onClick={onClick}
+      ref={ref}
+    >
       <Details {...user} />
     </div>
   )
