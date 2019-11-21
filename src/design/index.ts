@@ -18,6 +18,7 @@ export enum FontSize {
   Smaller = 14,
   Base = 16,
   Bigger = 20,
+  Big = 26,
 }
 
 export enum Color {
