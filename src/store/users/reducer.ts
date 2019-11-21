@@ -5,8 +5,8 @@ const initialState: UsersState = {
   isEnd: false,
   error: null,
   page: 0,
-  limit: 10, // 50
-  maxUsers: 30, // 1000
+  limit: 50, // 50
+  maxUsers: 1000, // 1000
   list: null,
   nextPageUsers: null,
   query: '',
