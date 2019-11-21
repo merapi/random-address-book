@@ -53,7 +53,7 @@ const Main = () => {
     if (isIdling && !isEnd && !nextPagePrefetched) {
       dispatch(usersActions.idleDetected())
     }
-  }, [isIdling])
+  }, [isIdling, isEnd, nextPagePrefetched, dispatch])
 
   useEffect(() => {
     const target = bottomIndicator.current

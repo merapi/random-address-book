@@ -58,7 +58,7 @@ const useIdle = (
       }
       document.removeEventListener('visibilitychange', onVisibility)
     }
-  }, [ms, events])
+  }, [ms, events, state])
 
   return state
 }
