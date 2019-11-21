@@ -22,8 +22,6 @@ const BareModal = ({ className, children, onClose }: Props) => {
   )
 }
 
-const Inner = styled.div``
-
 export default styled(BareModal)`
   position: fixed;
   z-index: 2;

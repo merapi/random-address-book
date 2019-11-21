@@ -7,19 +7,29 @@ import UserCard from 'components/UserCard'
 import UserCardList from 'components/UserCardList'
 import { FlexAlign } from 'design'
 import React, { MouseEvent, Suspense, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as usersActions from 'store/users/actions'
+import * as usersSelectors from 'store/users/selectors'
 import { User } from 'types'
 
 const UserDetail = React.lazy(() => import('components/UserDetail'))
 
 const Main = () => {
-  const [list, setList] = useState<User[]>([])
+  const dispatch = useDispatch()
+
+  // const [list, setList] = useSelector<User[]>([])
+  const list = useSelector(usersSelectors.list)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
   useEffect(() => {
-    fetch(`https://randomuser.me/api/?seed=foobar&inc=name,location,email,picture,phone,cell&nat=ch&results=50&page=1`)
-      .then(response => response.json())
-      .then(list => setList(list.results))
-  }, [])
+    dispatch(usersActions.fetchUsers(1, 5, []))
+  }, [dispatch])
+
+  // useEffect(() => {
+  //   fetch(`https://randomuser.me/api/?seed=foobar&inc=name,location,email,picture,phone,cell&nat=ch&results=50&page=1`)
+  //     .then(response => response.json())
+  //     .then(list => setList(list.results))
+  // }, [])
 
   const onUserClick = (user: User) => (event: MouseEvent) => {
     console.log(user, event)
@@ -40,11 +50,13 @@ const Main = () => {
         </Modal>
       )}
       <SearchBar />
-      <UserCardList>
-        {list.map(user => (
-          <UserCard key={user.email} onClick={onUserClick(user)} {...user} />
-        ))}
-      </UserCardList>
+      {list ? (
+        <UserCardList>
+          {list.map(user => (
+            <UserCard key={user.email} onClick={onUserClick(user)} {...user} />
+          ))}
+        </UserCardList>
+      ) : null}
       <Row justifyContent={FlexAlign.Center}>
         <Loader />
       </Row>
