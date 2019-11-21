@@ -42,8 +42,8 @@ const BareLoader = ({ className, withOuter }: Props) => {
     }
   }, [loaderOvserved])
 
-  const loader = (ref?: RefObject<HTMLDivElement>) => (
-    <div key="mainLoader" ref={ref} className={className}>
+  const loader = (key: string, ref?: RefObject<HTMLDivElement>) => (
+    <div key={key} ref={ref} className={className}>
       <div className="sk-fading-circle">
         <div className="sk-circle1 sk-circle"></div>
         <div className="sk-circle2 sk-circle"></div>
@@ -62,15 +62,15 @@ const BareLoader = ({ className, withOuter }: Props) => {
   )
 
   if (withOuter) {
-    jsx.push(<Outer>{loader(ref)}</Outer>)
+    jsx.push(<Outer key="outer">{loader('mainLoader', ref)}</Outer>)
   } else {
-    jsx.push(loader(ref))
+    jsx.push(loader('mainLoader', ref))
   }
 
   if (smallIsVisible) {
     jsx.push(
       <Absolute key="absoluteLoader">
-        <Outer padding={Spacing.Small}>{loader()}</Outer>
+        <Outer padding={Spacing.Small}>{loader('absoluteLoader')}</Outer>
       </Absolute>,
     )
   }

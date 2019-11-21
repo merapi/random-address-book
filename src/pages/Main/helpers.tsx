@@ -21,7 +21,7 @@ export const renderBottomElement = (
       </BottomMessage>
     )
   } else if (isError) {
-    return <BottomMessage>Error: {isError}.</BottomMessage>
+    return <BottomMessage>Error: {String(isError)}.</BottomMessage>
   } else if (isLoading) {
     return <Loader />
   } else {

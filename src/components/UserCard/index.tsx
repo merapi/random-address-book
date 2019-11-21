@@ -32,9 +32,16 @@ const BareUserCard = (
 export default styled(forwardRef<HTMLDivElement, Props>(BareUserCard))`
   display: flex;
   flex-shrink: 0;
-  width: 360px;
+  width: 280px;
+  @media (min-width: 360px) {
+    width: 320px;
+  }
+  overflow: hidden;
   min-height: 96px;
-  padding: ${Spacing.Medium}px;
+  padding: ${Spacing.Base}px;
+  @media (min-width: 360px) {
+    padding: ${Spacing.Medium}px;
+  }
   background: white;
   box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.22);
   transition: all 0.1s;

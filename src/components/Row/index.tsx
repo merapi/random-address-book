@@ -1,10 +1,12 @@
 import { FlexAlign, Spacing } from 'design'
 import React, { forwardRef, ReactNode } from 'react'
 import styled from 'styled-components'
+import { styledProperty } from 'utils/styled'
 
 interface Props {
   className?: string
   children: ReactNode
+  display?: string | string[]
   padding?: Spacing | string
   marginTop?: Spacing
   alignItems?: FlexAlign | undefined
@@ -22,7 +24,7 @@ function isSpacing(arg: any): arg is Spacing {
 }
 
 export default styled(forwardRef(BareRow))`
-  display: flex;
+  ${styledProperty('display', 'flex')}
   ${({ padding }) =>
     padding ? `padding: ${padding}${isSpacing(padding) ? `px` : ``};` : ``}
   ${({ marginTop }) => (marginTop ? `margin-top: ${marginTop}px;` : ``)}

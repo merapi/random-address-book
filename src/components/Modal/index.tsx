@@ -1,3 +1,4 @@
+import { Spacing } from 'design'
 import React, { MouseEvent, ReactNode, useRef } from 'react'
 import styled from 'styled-components'
 
@@ -33,6 +34,7 @@ export default styled(BareModal)`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: ${Spacing.Small}px;
   padding-top: 20%;
   cursor: zoom-out;
   & * {

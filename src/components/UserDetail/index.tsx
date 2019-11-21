@@ -13,16 +13,28 @@ interface BaseProps {
 
 type Props = BaseProps & User
 
-const BareUserDetail = ({ className, picture, name, email, location, phone, cell }: Props) => {
+const BareUserDetail = ({
+  className,
+  picture,
+  name,
+  email,
+  location,
+  phone,
+  cell,
+}: Props) => {
   const card = { picture, name, email }
 
   return (
     <div className={className}>
       <Details {...card} />
-      <Row marginTop={Spacing.Large}>
+      <Row display={['block', 'flex']} marginTop={Spacing.Large}>
         {location && (
           <div>
-            <Title fontSize={FontSize.Smaller} marginBottom={Spacing.Small} color={Color.Primary}>
+            <Title
+              fontSize={FontSize.Smaller}
+              marginBottom={Spacing.Small}
+              color={Color.Primary}
+            >
               Location
             </Title>
             <p>
@@ -35,8 +47,12 @@ const BareUserDetail = ({ className, picture, name, email, location, phone, cell
           </div>
         )}
         {(phone || cell) && (
-          <Div marginLeft={Spacing.Large}>
-            <Title fontSize={FontSize.Smaller} marginBottom={Spacing.Small} color={Color.Primary}>
+          <Div marginLeft={[Spacing.None, Spacing.Large]}>
+            <Title
+              fontSize={FontSize.Smaller}
+              marginBottom={Spacing.Small}
+              color={Color.Primary}
+            >
               Contact
             </Title>
             <p>
@@ -52,7 +68,8 @@ const BareUserDetail = ({ className, picture, name, email, location, phone, cell
 }
 
 export default styled(BareUserDetail)`
-  padding: ${Spacing.Medium}px ${Spacing.Medium}px ${Spacing.Tiny}px ${Spacing.Medium}px;
+  padding: ${Spacing.Medium}px ${Spacing.Medium}px ${Spacing.Tiny}px
+    ${Spacing.Medium}px;
   background: white;
   box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.22);
   transition: all 0.1s;

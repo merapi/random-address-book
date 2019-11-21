@@ -1,13 +1,14 @@
 import { Spacing } from 'design'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
+import { styledProperty } from 'utils/styled'
 
 interface Props {
   className?: string
   children?: ReactNode
-  marginLeft?: Spacing
+  marginLeft?: Spacing | Spacing[]
 }
 
 export default styled.div<Props>`
-  ${({ marginLeft }) => (marginLeft ? `margin-left: ${marginLeft}px` : ``)}
+  ${styledProperty('margin-left')}
 `

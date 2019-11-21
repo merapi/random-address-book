@@ -52,5 +52,5 @@ export default styled(BareSearchBar)`
   align-items: center;
   background-color: rgba(245, 246, 250, 0.9);
   /* backdrop-filter: blur(3px); */
-  padding: ${Spacing.Huge}px 0 16px 0;
+  padding: ${Spacing.Huge}px 8px 16px 8px;
 `

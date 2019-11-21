@@ -21,7 +21,10 @@ const Details = ({ className, picture, name, email }: Props) => (
         <Title marginBottom={Spacing.Tiny}>
           {name.first} {name.last}
         </Title>
-        <Title fontSize={FontSize.Smaller} color={Color.Primary}>
+        <Title
+          fontSize={[FontSize.Small, FontSize.Smaller]}
+          color={Color.Primary}
+        >
           {email}
         </Title>
       </Div>

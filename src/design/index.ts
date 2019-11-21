@@ -14,6 +14,7 @@ export enum Size {
 }
 
 export enum FontSize {
+  Small = 12,
   Smaller = 14,
   Base = 16,
   Bigger = 20,
