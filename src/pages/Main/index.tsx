@@ -38,7 +38,6 @@ const Main = () => {
     (entries: IntersectionObserverEntry[]) => {
       if (entries.length && entries[0].target === bottomIndicator.current) {
         if (entries[0].isIntersecting) {
-          console.log('bottom', entries[0])
           dispatch(usersActions.bottomVisited())
         }
       }
@@ -62,7 +61,6 @@ const Main = () => {
 
   const onUserClick = useCallback(
     (user: User) => (event: MouseEvent) => {
-      console.log(user, event)
       setSelectedUser(user)
     },
     [],
@@ -86,10 +84,8 @@ const Main = () => {
   }, [])
 
   const filterByQuery = (query: string) => {
-    console.log(`filterByQuery`)
     return (user: User) => {
       const searchable = normalizeString(`${user.name.first} ${user.name.last}`)
-      console.log(searchable, query)
       return searchable.includes(query)
     }
   }
