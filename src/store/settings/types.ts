@@ -14,7 +14,7 @@ export interface SetNationalities {
 export type SettingsActions = SetNationalities
 
 // Data types
-// Nationality?
+// Nationality should be here?
 
 // State type
 export interface SettingsState {

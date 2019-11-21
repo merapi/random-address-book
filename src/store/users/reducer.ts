@@ -5,8 +5,8 @@ const initialState: UsersState = {
   isEnd: false,
   error: null,
   page: 0,
-  limit: 50, // 50
-  maxUsers: 150, // 1000
+  limit: 10, // 50
+  maxUsers: 30, // 1000
   list: null,
   nextPageUsers: null,
   query: '',
@@ -25,7 +25,7 @@ export default (state: UsersState = initialState, action: UsersActions) => {
       return initialState
     }
 
-    case UsersActionsConsts.FETCH_USERS: {
+    case UsersActionsConsts.FETCH_USERS_STARTED: {
       return {
         ...state,
         isLoading: true,
@@ -45,10 +45,18 @@ export default (state: UsersState = initialState, action: UsersActions) => {
       return {
         ...state,
         page,
+        nextPageUsers: null,
         isLoading: false,
         isEnd: page * state.limit >= state.maxUsers,
         error: null,
         list: state.list ? [...state.list, ...users] : [...users],
+      }
+    }
+
+    case UsersActionsConsts.SET_NEXT_PAGE_USERS: {
+      return {
+        ...state,
+        nextPageUsers: action.users,
       }
     }
   }

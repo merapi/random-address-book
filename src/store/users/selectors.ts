@@ -7,3 +7,4 @@ export const isLoading = (state: AppState) => state.users.isLoading
 export const isError = (state: AppState) => state.users.error
 export const isEnd = (state: AppState) => state.users.isEnd
 export const query = (state: AppState) => state.users.query
+export const nextPageUsers = (state: AppState) => state.users.nextPageUsers

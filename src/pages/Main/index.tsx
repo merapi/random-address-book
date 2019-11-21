@@ -7,6 +7,7 @@ import Title from 'components/Title'
 import UserCard from 'components/UserCard'
 import UserCardList from 'components/UserCardList'
 import { Color, FlexAlign, Spacing } from 'design'
+import useIdle from 'hooks/useIdle'
 import React, {
   MouseEvent,
   Suspense,
@@ -33,6 +34,8 @@ const Main = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const query = useSelector(usersSelectors.query)
   const inSearchMode = query
+  const nextPagePrefetched = useSelector(usersSelectors.nextPageUsers)
+  const isIdling = useIdle(2000)
 
   const bottomObserved = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -44,6 +47,13 @@ const Main = () => {
     },
     [dispatch],
   )
+
+  useEffect(() => {
+    // We only use idle detection for one time next page prefetch - don't spam redux
+    if (isIdling && !isEnd && !nextPagePrefetched) {
+      dispatch(usersActions.idleDetected())
+    }
+  }, [isIdling])
 
   useEffect(() => {
     const target = bottomIndicator.current

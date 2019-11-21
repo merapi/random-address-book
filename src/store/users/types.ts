@@ -3,32 +3,23 @@ import { Nationality } from './../../types/index'
 
 // Action consts
 export enum UsersActionsConsts {
-  FETCH_USERS = 'FETCH_USERS',
+  FETCH_USERS_STARTED = 'FETCH_USERS_STARTED',
   FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
   FETCH_USERS_ERROR = 'FETCH_USERS_ERROR',
   RESET_USERS = 'RESET_USERS',
   BOTTOM_VISITED = 'BOTTOM_VISITED',
   SET_QUERY = 'SET_QUERY',
-
-  // PRELOAD_NEXT_PAGE = 'PRELOAD_NEXT_PAGE',
-  // SHOW_USER_DETAIL = 'SHOW_USER_DETAIL',
+  IDLE_DETECTD = 'IDLE_DETECTD',
+  SET_NEXT_PAGE_USERS = 'SET_NEXT_PAGE_USERS',
 }
 
 // Action types
-export interface FetchUsers {
-  type: UsersActionsConsts.FETCH_USERS
+export interface FetchUsersStarted {
+  type: UsersActionsConsts.FETCH_USERS_STARTED
   page: number
   limit: number
   nationalities: Nationality[]
 }
-
-// export interface StartFetchUsers {
-//   type: UsersActionsConsts.FETCH_USERS
-// }
-
-// export interface StopFetchUsers {
-//   type: UsersActionsConsts.FETCH_USERS_SUCCESS
-// }
 
 export interface FetchUsersError {
   type: UsersActionsConsts.FETCH_USERS_ERROR
@@ -55,16 +46,27 @@ export interface SetQuery {
   query: string
 }
 
+export interface IdleDetected {
+  type: UsersActionsConsts.IDLE_DETECTD
+}
+
+export interface SetNextPageUsers {
+  type: UsersActionsConsts.SET_NEXT_PAGE_USERS
+  users: User[]
+}
+
 export type UsersActions =
-  | FetchUsers
+  | FetchUsersStarted
   | FetchUsersSuccess
   | BottomVisited
   | FetchUsersError
   | SetQuery
   | ResetUsers
+  | IdleDetected
+  | SetNextPageUsers
 
 // Data types
-// User?
+// User should be here?
 
 // State type
 export interface UsersState {

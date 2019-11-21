@@ -12,12 +12,14 @@ import { SettingsActionsConsts } from 'store/settings/types'
 import { select } from 'utils/saga/typedEffects'
 import * as userActions from './actions'
 import * as userSelectors from './selectors'
-import { FetchUsers, UsersActionsConsts } from './types'
+import { FetchUsersStarted, UsersActionsConsts } from './types'
 
-export function* fetchUsers(action: FetchUsers) {
+function* fetchUsers(action: FetchUsersStarted) {
   const abortController = new window.AbortController()
   try {
     const { nationalities, page, limit } = action
+
+    yield put(userActions.fetchUsersStarted(page, limit, nationalities))
     const response: FetchUsersResponse = yield call(
       Api.user.fetchUsers,
       page,
@@ -25,9 +27,7 @@ export function* fetchUsers(action: FetchUsers) {
       nationalities,
       abortController,
     )
-    yield put(
-      userActions.fetchUsersSuccess(response.results, response.info.page),
-    )
+    return response
   } catch (e) {
     yield put(userActions.fetchUsersError(e))
     console.error(`fetchUsers`, e)
@@ -38,35 +38,73 @@ export function* fetchUsers(action: FetchUsers) {
   }
 }
 
-export function* bottomVisited() {
+function* fetchNextPage() {
+  const page = yield* select(userSelectors.currentPage)
+  const limit = yield* select(userSelectors.limit)
+  const nationalities = yield* select(settingsSelectors.nationalities)
+
+  const response = yield call(
+    fetchUsers,
+    userActions.fetchUsersStarted(page + 1, limit, nationalities),
+  )
+
+  return response
+}
+
+function* preloadNextPageData() {
+  const response = yield fetchNextPage()
+  yield put(userActions.setNextPageUsers(response.results))
+}
+
+function* bottomVisited() {
   try {
-    const page = yield* select(userSelectors.currentPage)
-    const limit = yield* select(userSelectors.limit)
-    const nationalities = yield* select(settingsSelectors.nationalities)
-    // yield call(fetchUsers, actions.fetchUsers(page + 1, limit, nationalities))
-    yield put(userActions.fetchUsers(page + 1, limit, nationalities))
+    const nextPageUsers = yield select(userSelectors.nextPageUsers)
+    let users, page
+
+    if (nextPageUsers) {
+      users = nextPageUsers
+      page = (yield select(userSelectors.currentPage)) + 1
+    } else {
+      const response: FetchUsersResponse = yield fetchNextPage()
+      users = response.results
+      page = response.info.page
+    }
+
+    yield put(userActions.fetchUsersSuccess(users, page))
   } catch (e) {
     console.error(`bottomVisited`, e)
   }
 }
 
-export function* watchBottomVisited() {
+function* canFetchMore() {
+  const endOfData = yield select(userSelectors.isEnd) // aleady fetched all data
+  const query = yield select(userSelectors.query) // not while searching
+  return !endOfData && !query
+}
+
+function* watchBottomVisited() {
   while (true) {
     yield take(UsersActionsConsts.BOTTOM_VISITED)
-    const endOfData = yield select(userSelectors.isEnd) // aleady fetched all data
-    const query = yield select(userSelectors.query) // not while searching
-    if (!endOfData && !query) {
+    if (yield canFetchMore()) {
       yield call(bottomVisited)
     }
   }
 }
 
-export function* resetUsers() {
+function* resetUsers() {
   yield put(userActions.resetUsers())
 }
 
+function* idleDetected() {
+  const nextPageUsers = yield* select(userSelectors.nextPageUsers)
+  const fetchMore = yield canFetchMore()
+  if (!nextPageUsers && fetchMore) {
+    yield call(preloadNextPageData)
+  }
+}
+
 export default function*() {
-  yield takeLatest(UsersActionsConsts.FETCH_USERS, fetchUsers)
+  yield takeLatest(UsersActionsConsts.IDLE_DETECTD, idleDetected)
   yield takeLatest(SettingsActionsConsts.SET_NATIONALITIES, resetUsers)
   yield fork(watchBottomVisited)
 }

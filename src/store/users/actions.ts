@@ -1,17 +1,17 @@
 import { Nationality, User } from 'types'
 import {
-  FetchUsers,
   FetchUsersError,
+  FetchUsersStarted,
   FetchUsersSuccess,
   UsersActionsConsts,
 } from './types'
 
-export const fetchUsers = (
+export const fetchUsersStarted = (
   page: number,
   limit: number,
   nationalities: Nationality[],
-): FetchUsers => ({
-  type: UsersActionsConsts.FETCH_USERS,
+): FetchUsersStarted => ({
+  type: UsersActionsConsts.FETCH_USERS_STARTED,
   page,
   limit,
   nationalities,
@@ -42,4 +42,13 @@ export const bottomVisited = () => ({
 export const setQuery = (query: string) => ({
   type: UsersActionsConsts.SET_QUERY,
   query,
+})
+
+export const idleDetected = () => ({
+  type: UsersActionsConsts.IDLE_DETECTD,
+})
+
+export const setNextPageUsers = (users: User[]) => ({
+  type: UsersActionsConsts.SET_NEXT_PAGE_USERS,
+  users,
 })
