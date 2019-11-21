@@ -19,11 +19,14 @@ const BareSearchBar = ({ className, query, onSubmit }: Props) => {
     [onSubmit],
   )
 
-  const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Escape') {
-      onSubmit('')
-    }
-  }, [])
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Escape') {
+        onSubmit('')
+      }
+    },
+    [onSubmit],
+  )
 
   return (
     <div className={className}>

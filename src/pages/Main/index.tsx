@@ -79,9 +79,12 @@ const Main = () => {
       .toLowerCase()
   }
 
-  const onSearch = useCallback((query: string) => {
-    dispatch(usersActions.setQuery(normalizeString(query)))
-  }, [])
+  const onSearch = useCallback(
+    (query: string) => {
+      dispatch(usersActions.setQuery(normalizeString(query)))
+    },
+    [dispatch],
+  )
 
   const filterByQuery = (query: string) => {
     return (user: User) => {
