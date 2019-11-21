@@ -7,6 +7,7 @@ export enum UsersActionsConsts {
   FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
   FETCH_USERS_ERROR = 'FETCH_USERS_ERROR',
   BOTTOM_VISITED = 'BOTTOM_VISITED',
+  SET_QUERY = 'SET_QUERY',
 
   // PRELOAD_NEXT_PAGE = 'PRELOAD_NEXT_PAGE',
   // SHOW_USER_DETAIL = 'SHOW_USER_DETAIL',
@@ -44,7 +45,17 @@ export interface BottomVisited {
   users: User[]
 }
 
-export type UsersActions = FetchUsers | FetchUsersSuccess | BottomVisited | FetchUsersError
+export interface SetQuery {
+  type: UsersActionsConsts.SET_QUERY
+  query: string
+}
+
+export type UsersActions =
+  | FetchUsers
+  | FetchUsersSuccess
+  | BottomVisited
+  | FetchUsersError
+  | SetQuery
 
 // Data types
 // User?
@@ -59,4 +70,5 @@ export interface UsersState {
   readonly maxUsers: number
   readonly list: User[] | null
   readonly nextPageUsers: User[] | null
+  readonly query: string
 }

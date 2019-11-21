@@ -1,16 +1,17 @@
 import Input from 'components/Input'
 import { Spacing } from 'design'
 import { A } from 'hookrouter'
-import React, { ChangeEvent, useCallback } from 'react'
+import React, { ChangeEvent, KeyboardEvent, useCallback } from 'react'
 import styled from 'styled-components'
 import SettingsIcon from './SettingsIcon'
 
 interface Props {
   className?: string
+  query: string
   onSubmit: (query: string) => void
 }
 
-const BareSearchBar = ({ className, onSubmit }: Props) => {
+const BareSearchBar = ({ className, query, onSubmit }: Props) => {
   const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       onSubmit(event.target.value)
@@ -18,12 +19,24 @@ const BareSearchBar = ({ className, onSubmit }: Props) => {
     [onSubmit],
   )
 
+  const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
+    console.log(event.key, event.keyCode)
+    if (event.key === 'Escape') {
+      onSubmit('')
+    }
+  }, [])
+
   return (
     <div className={className}>
       <A href="/settings">
         <SettingsIcon />
       </A>
-      <Input placeholder="Type to search" onChange={onChange} />
+      <Input
+        placeholder="Type to search, press Escape to clear."
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        value={query}
+      />
     </div>
   )
 }
