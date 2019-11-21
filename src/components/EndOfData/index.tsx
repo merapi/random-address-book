@@ -1,6 +1,6 @@
+import { Color, Spacing } from 'design'
 import React from 'react'
 import styled from 'styled-components'
-import { Color } from 'design'
 
 interface Props {
   className?: string
@@ -12,4 +12,5 @@ export default styled(BareEndOfData)`
   font-size: 16px;
   font-style: italic;
   color: ${Color.Primary};
+  padding: ${Spacing.Base}px 0 ${Spacing.Large}px 0;
 `

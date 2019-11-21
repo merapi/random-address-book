@@ -1,22 +1,32 @@
 import Input from 'components/Input'
 import { Spacing } from 'design'
 import { A } from 'hookrouter'
-import React from 'react'
+import React, { ChangeEvent, useCallback } from 'react'
 import styled from 'styled-components'
 import SettingsIcon from './SettingsIcon'
 
 interface Props {
   className?: string
+  onSubmit: (query: string) => void
 }
 
-const BareSearchBar = ({ className }: Props) => (
-  <div className={className}>
-    <A href="/settings">
-      <SettingsIcon />
-    </A>
-    <Input placeholder="Type to search" />
-  </div>
-)
+const BareSearchBar = ({ className, onSubmit }: Props) => {
+  const onChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onSubmit(event.target.value)
+    },
+    [onSubmit],
+  )
+
+  return (
+    <div className={className}>
+      <A href="/settings">
+        <SettingsIcon />
+      </A>
+      <Input placeholder="Type to search" onChange={onChange} />
+    </div>
+  )
+}
 
 export default styled(BareSearchBar)`
   position: sticky;

@@ -20,6 +20,9 @@ export interface User {
   }
   phone?: string
   cell?: string
+  login?: {
+    uuid: string
+  }
 }
 
 export type Nationality = 'CH' | 'ES' | 'FR' | 'GB'

@@ -26,7 +26,7 @@ const user = {
     }
     const nat = nationalities.join(',')
     return await fetch(
-      `${API_URL}/?seed=${API_SEED}&inc=name,location,email,picture,phone,cell&nat=${nat}&results=${limit}&page=${page}`,
+      `${API_URL}/?seed=${API_SEED}&inc=name,location,email,picture,phone,cell,login&nat=${nat}&results=${limit}&page=${page}`,
       options,
     ).then(response => response.json())
   },

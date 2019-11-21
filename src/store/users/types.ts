@@ -6,6 +6,7 @@ export enum UsersActionsConsts {
   FETCH_USERS = 'FETCH_USERS',
   FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
   FETCH_USERS_ERROR = 'FETCH_USERS_ERROR',
+  BOTTOM_VISITED = 'BOTTOM_VISITED',
 
   // PRELOAD_NEXT_PAGE = 'PRELOAD_NEXT_PAGE',
   // SHOW_USER_DETAIL = 'SHOW_USER_DETAIL',
@@ -27,17 +28,23 @@ export interface FetchUsers {
 //   type: UsersActionsConsts.FETCH_USERS_SUCCESS
 // }
 
-// export interface FetchUsersError {
-//   type: UsersActionsConsts.FETCH_USERS_ERROR
-//   error: Error
-// }
+export interface FetchUsersError {
+  type: UsersActionsConsts.FETCH_USERS_ERROR
+  error: Error
+}
 
 export interface FetchUsersSuccess {
   type: UsersActionsConsts.FETCH_USERS_SUCCESS
   users: User[]
+  page: number
 }
 
-export type UsersActions = FetchUsers | FetchUsersSuccess
+export interface BottomVisited {
+  type: UsersActionsConsts.BOTTOM_VISITED
+  users: User[]
+}
+
+export type UsersActions = FetchUsers | FetchUsersSuccess | BottomVisited | FetchUsersError
 
 // Data types
 // User?
@@ -45,6 +52,7 @@ export type UsersActions = FetchUsers | FetchUsersSuccess
 // State type
 export interface UsersState {
   readonly isLoading: boolean | null
+  readonly isEnd: boolean
   readonly error: Error | null
   readonly page: number
   readonly limit: number

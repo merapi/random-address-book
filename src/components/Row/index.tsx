@@ -1,5 +1,5 @@
 import { FlexAlign, Spacing } from 'design'
-import React, { ReactNode } from 'react'
+import React, { forwardRef, ReactNode } from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -11,9 +11,13 @@ interface Props {
   justifyContent?: FlexAlign | undefined
 }
 
-const BareRow = ({ className, children }: Props) => <div className={className}>{children}</div>
+const BareRow = ({ className, children }: Props, ref: any) => (
+  <div ref={ref} className={className}>
+    {children}
+  </div>
+)
 
-export default styled(BareRow)`
+export default styled(forwardRef(BareRow))`
   display: flex;
   ${({ padding }) => (padding ? `padding: ${padding}px;` : ``)}
   ${({ marginTop }) => (marginTop ? `margin-top: ${marginTop}px;` : ``)}

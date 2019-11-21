@@ -1,5 +1,5 @@
 import { Nationality, User } from 'types'
-import { FetchUsers, FetchUsersSuccess, UsersActionsConsts } from './types'
+import { FetchUsers, FetchUsersError, FetchUsersSuccess, UsersActionsConsts } from './types'
 
 export const fetchUsers = (page: number, limit: number, nationalities: Nationality[]): FetchUsers => ({
   type: UsersActionsConsts.FETCH_USERS,
@@ -8,12 +8,17 @@ export const fetchUsers = (page: number, limit: number, nationalities: Nationali
   nationalities,
 })
 
-// export const fetchUsersError = (error: Error): FetchUsersError => ({
-//   type: UsersActionsConsts.FETCH_Users_ERROR,
-//   error,
-// })
+export const fetchUsersError = (error: Error): FetchUsersError => ({
+  type: UsersActionsConsts.FETCH_USERS_ERROR,
+  error,
+})
 
-export const fetchUsersSuccess = (users: User[]): FetchUsersSuccess => ({
+export const fetchUsersSuccess = (users: User[], page: number): FetchUsersSuccess => ({
   type: UsersActionsConsts.FETCH_USERS_SUCCESS,
   users,
+  page,
+})
+
+export const bottomVisited = () => ({
+  type: UsersActionsConsts.BOTTOM_VISITED,
 })
