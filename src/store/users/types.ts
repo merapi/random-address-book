@@ -6,6 +6,7 @@ export enum UsersActionsConsts {
   FETCH_USERS = 'FETCH_USERS',
   FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS',
   FETCH_USERS_ERROR = 'FETCH_USERS_ERROR',
+  RESET_USERS = 'RESET_USERS',
   BOTTOM_VISITED = 'BOTTOM_VISITED',
   SET_QUERY = 'SET_QUERY',
 
@@ -40,6 +41,10 @@ export interface FetchUsersSuccess {
   page: number
 }
 
+export interface ResetUsers {
+  type: UsersActionsConsts.RESET_USERS
+}
+
 export interface BottomVisited {
   type: UsersActionsConsts.BOTTOM_VISITED
   users: User[]
@@ -56,6 +61,7 @@ export type UsersActions =
   | BottomVisited
   | FetchUsersError
   | SetQuery
+  | ResetUsers
 
 // Data types
 // User?

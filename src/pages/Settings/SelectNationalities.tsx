@@ -1,30 +1,31 @@
 import * as flags from 'assets/flags'
 import Title from 'components/Title'
 import { Size, Spacing } from 'design'
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Nationality } from 'types'
 
 interface Props {
   className?: string
+  nationalities: Nationality[]
   onSubmit: (nationalities: Nationality[]) => void
 }
 
 const supportedNationalities: Nationality[] = ['CH', 'ES', 'FR', 'GB']
 
-const BareSelectNationalities = ({ className, onSubmit }: Props) => {
-  const [nationalities, setNationalities] = useState<Nationality[]>(['ES'])
+const BareSelectNationalities = ({
+  className,
+  nationalities,
+  onSubmit,
+}: Props) => {
   const onChange = (nationality: Nationality) => (checked: boolean) => {
-    setNationalities(state => {
-      let newState = [...state]
-      if (checked) {
-        newState.push(nationality)
-      } else {
-        newState = newState.filter(n => n !== nationality)
-      }
-      onSubmit(newState)
-      return newState
-    })
+    let newState = [...nationalities]
+    if (checked) {
+      newState.push(nationality)
+    } else {
+      newState = newState.filter(n => n !== nationality)
+    }
+    onSubmit(newState)
   }
 
   return (
@@ -49,7 +50,12 @@ interface OptionProps {
   onChange: (checked: boolean) => void
 }
 
-const BareOption = ({ nationality, enabled, onChange, className }: OptionProps) => {
+const BareOption = ({
+  nationality,
+  enabled,
+  onChange,
+  className,
+}: OptionProps) => {
   const Flag = styled(flags[nationality])<{ disabled?: boolean }>`
     ${({ disabled }) => disabled && `filter: grayscale(100%);`}
   `

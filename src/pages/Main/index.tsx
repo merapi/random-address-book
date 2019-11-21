@@ -34,10 +34,6 @@ const Main = () => {
   const query = useSelector(usersSelectors.query)
   const inSearchMode = query
 
-  // useEffect(() => {
-  //   dispatch(usersActions.fetchUsers(1, 10, []))
-  // }, [dispatch])
-
   const bottomObserved = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       if (entries.length && entries[0].target === bottomIndicator.current) {

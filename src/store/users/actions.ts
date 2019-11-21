@@ -31,6 +31,10 @@ export const fetchUsersSuccess = (
   page,
 })
 
+export const resetUsers = () => ({
+  type: UsersActionsConsts.RESET_USERS,
+})
+
 export const bottomVisited = () => ({
   type: UsersActionsConsts.BOTTOM_VISITED,
 })

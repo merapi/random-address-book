@@ -2,6 +2,9 @@ import Title from 'components/Title'
 import { Color, Spacing } from 'design'
 import { A } from 'hookrouter'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as settingsActions from 'store/settings/actions'
+import * as settingsSelectors from 'store/settings/selectors'
 import styled from 'styled-components'
 import { Nationality } from 'types'
 import SelectNationalities from './SelectNationalities'
@@ -11,8 +14,11 @@ interface Props {
 }
 
 const BareSettings = ({ className }: Props) => {
+  const dispatch = useDispatch()
+  const nationalities = useSelector(settingsSelectors.nationalities)
+
   const onNationalitiesChange = (nationalities: Nationality[]) => {
-    console.log(nationalities)
+    dispatch(settingsActions.setNationalities(nationalities))
   }
 
   return (
@@ -20,7 +26,10 @@ const BareSettings = ({ className }: Props) => {
       <A style={{ color: Color.Primary }} href="/">
         <Title marginBottom={Spacing.Huge}>Back to search</Title>
       </A>
-      <SelectNationalities onSubmit={onNationalitiesChange} />
+      <SelectNationalities
+        nationalities={nationalities}
+        onSubmit={onNationalitiesChange}
+      />
     </div>
   )
 }

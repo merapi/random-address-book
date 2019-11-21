@@ -21,6 +21,10 @@ export default (state: UsersState = initialState, action: UsersActions) => {
       }
     }
 
+    case UsersActionsConsts.RESET_USERS: {
+      return initialState
+    }
+
     case UsersActionsConsts.FETCH_USERS: {
       return {
         ...state,

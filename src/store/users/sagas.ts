@@ -8,8 +8,9 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 import * as settingsSelectors from 'store/settings/selectors'
+import { SettingsActionsConsts } from 'store/settings/types'
 import { select } from 'utils/saga/typedEffects'
-import * as actions from './actions'
+import * as userActions from './actions'
 import * as userSelectors from './selectors'
 import { FetchUsers, UsersActionsConsts } from './types'
 
@@ -24,9 +25,11 @@ export function* fetchUsers(action: FetchUsers) {
       nationalities,
       abortController,
     )
-    yield put(actions.fetchUsersSuccess(response.results, response.info.page))
+    yield put(
+      userActions.fetchUsersSuccess(response.results, response.info.page),
+    )
   } catch (e) {
-    yield put(actions.fetchUsersError(e))
+    yield put(userActions.fetchUsersError(e))
     console.error(`fetchUsers`, e)
   } finally {
     if (yield cancelled()) {
@@ -41,7 +44,7 @@ export function* bottomVisited() {
     const limit = yield* select(userSelectors.limit)
     const nationalities = yield* select(settingsSelectors.nationalities)
     // yield call(fetchUsers, actions.fetchUsers(page + 1, limit, nationalities))
-    yield put(actions.fetchUsers(page + 1, limit, nationalities))
+    yield put(userActions.fetchUsers(page + 1, limit, nationalities))
   } catch (e) {
     console.error(`bottomVisited`, e)
   }
@@ -58,7 +61,12 @@ export function* watchBottomVisited() {
   }
 }
 
+export function* resetUsers() {
+  yield put(userActions.resetUsers())
+}
+
 export default function*() {
   yield takeLatest(UsersActionsConsts.FETCH_USERS, fetchUsers)
+  yield takeLatest(SettingsActionsConsts.SET_NATIONALITIES, resetUsers)
   yield fork(watchBottomVisited)
 }

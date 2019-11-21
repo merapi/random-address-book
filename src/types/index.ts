@@ -23,6 +23,7 @@ export interface User {
   login?: {
     uuid: string
   }
+  nat?: Nationality
 }
 
 export type Nationality = 'CH' | 'ES' | 'FR' | 'GB'
