@@ -6,7 +6,7 @@ import SearchBar from 'components/SearchBar'
 import Title from 'components/Title'
 import UserCard from 'components/UserCard'
 import UserCardList from 'components/UserCardList'
-import { Color, FlexAlign, Spacing } from 'design'
+import { FlexAlign, Spacing } from 'design'
 import useIdle from 'hooks/useIdle'
 import React, {
   MouseEvent,
@@ -19,8 +19,9 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux'
 import * as usersActions from 'store/users/actions'
 import * as usersSelectors from 'store/users/selectors'
-import styled from 'styled-components'
 import { User } from 'types'
+import { filterByQuery, normalizeString } from 'utils/strings'
+import { renderBottomElement } from './helpers'
 
 const UserDetail = React.lazy(() => import('components/UserDetail'))
 
@@ -33,9 +34,9 @@ const Main = () => {
   const isEnd = useSelector(usersSelectors.isEnd)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const query = useSelector(usersSelectors.query)
-  const inSearchMode = query
+  const inSearchMode = Boolean(query)
   const nextPagePrefetched = useSelector(usersSelectors.nextPageUsers)
-  const isIdling = useIdle(2000)
+  const isIdling = useIdle(1000 * 2)
 
   const bottomObserved = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -80,15 +81,6 @@ const Main = () => {
     setSelectedUser(null)
   }
 
-  const normalizeString = (str: string) => {
-    return str
-      .trim()
-      .replace(/\s\s+/g, ' ') // remove multiple spaces
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // remove accents/diacritics
-      .toLowerCase()
-  }
-
   const onSearch = useCallback(
     (query: string) => {
       dispatch(usersActions.setQuery(normalizeString(query)))
@@ -96,34 +88,7 @@ const Main = () => {
     [dispatch],
   )
 
-  const filterByQuery = (query: string) => {
-    return (user: User) => {
-      const searchable = normalizeString(`${user.name.first} ${user.name.last}`)
-      return searchable.includes(query)
-    }
-  }
-
   const exitSearchMode = () => onSearch('')
-
-  const bottomElement = () => {
-    if (isEnd) {
-      return <BottomMessage>No more data.</BottomMessage>
-    } else if (inSearchMode) {
-      return (
-        <BottomMessage>
-          Exit search mode (click <Link onClick={exitSearchMode}>here</Link> or
-          clear the input) to fetch more data.
-        </BottomMessage>
-      )
-    } else if (isError) {
-      return <BottomMessage>Error: {isError}.</BottomMessage>
-    } else if (isLoading) {
-      return <Loader />
-    } else {
-      return <BottomMessage>Fetch more...</BottomMessage>
-    }
-  }
-
   const filteredList = query && list ? list.filter(filterByQuery(query)) : list
 
   return (
@@ -166,16 +131,16 @@ const Main = () => {
         justifyContent={FlexAlign.Center}
         padding={`${Spacing.Base}px 0 ${Spacing.Large}px 0`}
       >
-        {bottomElement()}
+        {renderBottomElement(
+          isEnd,
+          isError,
+          isLoading,
+          inSearchMode,
+          exitSearchMode,
+        )}
       </Row>
     </>
   )
 }
-
-const Link = styled.span`
-  text-decoration: underline;
-  color: ${Color.Primary};
-  cursor: pointer;
-`
 
 export default Main

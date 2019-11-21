@@ -1,5 +1,11 @@
 import { Color, Spacing } from 'design'
-import React from 'react'
+import React, {
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -8,8 +14,36 @@ interface Props {
 }
 
 const BareLoader = ({ className, withOuter }: Props) => {
-  const loader = (
-    <div className={className}>
+  let jsx = []
+  const [smallIsVisible, setSmallIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const loaderOvserved = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      if (entries.length && entries[0].target === ref.current) {
+        console.log(entries[0].isIntersecting)
+        setSmallIsVisible(!entries[0].isIntersecting)
+      }
+    },
+    [setSmallIsVisible],
+  )
+
+  useEffect(() => {
+    const target = ref.current
+    const observer = new IntersectionObserver(loaderOvserved)
+    if (target) {
+      observer.observe(target)
+    }
+
+    return () => {
+      if (target) {
+        observer.unobserve(target)
+      }
+    }
+  }, [loaderOvserved])
+
+  const loader = (ref?: RefObject<HTMLDivElement>) => (
+    <div key="mainLoader" ref={ref} className={className}>
       <div className="sk-fading-circle">
         <div className="sk-circle1 sk-circle"></div>
         <div className="sk-circle2 sk-circle"></div>
@@ -26,15 +60,33 @@ const BareLoader = ({ className, withOuter }: Props) => {
       </div>
     </div>
   )
+
   if (withOuter) {
-    return <Outer>{loader}</Outer>
+    jsx.push(<Outer>{loader(ref)}</Outer>)
   } else {
-    return loader
+    jsx.push(loader(ref))
   }
+
+  if (smallIsVisible) {
+    jsx.push(
+      <Absolute key="absoluteLoader">
+        <Outer padding={Spacing.Small}>{loader()}</Outer>
+      </Absolute>,
+    )
+  }
+
+  return <>{jsx}</>
 }
 
-const Outer = styled.div`
-  padding: ${Spacing.Medium}px;
+const Absolute = styled.div`
+  position: fixed;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+`
+
+const Outer = styled.div<{ padding?: Spacing }>`
+  padding: ${({ padding = Spacing.Medium }) => padding}px;
   background: white;
   box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.22);
   transition: all 0.1s;

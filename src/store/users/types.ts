@@ -70,7 +70,7 @@ export type UsersActions =
 
 // State type
 export interface UsersState {
-  readonly isLoading: boolean | null
+  readonly isLoading: boolean
   readonly isEnd: boolean
   readonly error: Error | null
   readonly page: number

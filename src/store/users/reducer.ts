@@ -1,7 +1,7 @@
 import { UsersActions, UsersActionsConsts, UsersState } from './types'
 
 const initialState: UsersState = {
-  isLoading: null,
+  isLoading: false,
   isEnd: false,
   error: null,
   page: 0,
@@ -56,6 +56,8 @@ export default (state: UsersState = initialState, action: UsersActions) => {
     case UsersActionsConsts.SET_NEXT_PAGE_USERS: {
       return {
         ...state,
+        isLoading: false,
+        error: null,
         nextPageUsers: action.users,
       }
     }
