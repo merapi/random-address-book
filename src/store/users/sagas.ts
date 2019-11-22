@@ -103,15 +103,8 @@ function* idleDetected() {
   }
 }
 
-function* watchIdle() {
-  // Only monitor for idle after first fetch
-  // (edge case with slow connection that will fire two requests at the start)
-  yield take(UsersActionsConsts.FETCH_USERS_SUCCESS)
-  yield takeLatest(UsersActionsConsts.IDLE_DETECTD, idleDetected)
-}
-
 export default function*() {
   yield takeLatest(SettingsActionsConsts.SET_NATIONALITIES, resetUsers)
-  yield fork(watchIdle)
+  yield takeLatest(UsersActionsConsts.IDLE_DETECTD, idleDetected)
   yield fork(watchBottomVisited)
 }
