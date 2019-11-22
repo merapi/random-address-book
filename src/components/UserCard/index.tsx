@@ -1,5 +1,5 @@
 import { Size, Spacing } from 'design'
-import React, { forwardRef, MouseEvent } from 'react'
+import React, { forwardRef, memo, MouseEvent } from 'react'
 import styled from 'styled-components'
 import { User } from 'types'
 import Details from './Details'
@@ -29,7 +29,7 @@ const BareUserCard = (
   )
 }
 
-export default styled(forwardRef<HTMLDivElement, Props>(BareUserCard))`
+const UserCard = styled(forwardRef<HTMLDivElement, Props>(BareUserCard))`
   display: flex;
   flex-shrink: 0;
   width: 280px;
@@ -54,3 +54,10 @@ export default styled(forwardRef<HTMLDivElement, Props>(BareUserCard))`
   margin: 0 ${Size.CardGap}px ${Size.CardGap}px 0;
   ${({ onClick }) => (typeof onClick === 'function' ? `cursor: zoom-in` : ``)}
 `
+
+export default memo(UserCard, (prev, next) => {
+  if (prev.login && next.login) {
+    return prev.login.uuid === next.login.uuid
+  }
+  return false
+})
