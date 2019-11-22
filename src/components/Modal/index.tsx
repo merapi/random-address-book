@@ -17,7 +17,12 @@ const BareModal = ({ className, children, onClose }: Props) => {
     }
   }
   return (
-    <div ref={node} className={className} onClick={checkTarget}>
+    <div
+      data-testid="modal"
+      ref={node}
+      className={className}
+      onClick={checkTarget}
+    >
       {children}
     </div>
   )

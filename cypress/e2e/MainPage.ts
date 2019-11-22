@@ -16,7 +16,7 @@ context('Main page', () => {
       .click()
       .findByText(/location/i)
       .findByText(/contact/i)
-      .get('body')
+      .findByTestId('modal')
       .click(1, 1, { force: true })
       .queryByText(/location/i, { timeout: 50 })
       .queryByText(/contact/i, { timeout: 50 })
@@ -25,5 +25,26 @@ context('Main page', () => {
 
   it('Renders list of 50 user cards', () => {
     cy.findAllByTestId(/^nat-/).should('have.length', 50)
+  })
+
+  it('After scroll to bottom we see 100 user cards', () => {
+    cy.scrollTo(0, '100%')
+      .findAllByTestId(/^nat-/)
+      .should('have.length', 100)
+  })
+
+  it('After non-existent user search we should see no cards', () => {
+    cy.findByPlaceholderText(/type to search/i)
+      .as('search')
+      .type('thisoneshouldnotbefound')
+      .findAllByTestId(/^nat-/)
+      .should('have.length', 0)
+  })
+
+  it('Should show back cards after pressing ESC', () => {
+    cy.findByPlaceholderText(/type to search/i)
+      .type('{esc}')
+      .findAllByTestId(/^nat-/)
+      .should('have.length', 100)
   })
 })
