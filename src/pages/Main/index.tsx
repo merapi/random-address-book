@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as usersActions from 'store/users/actions'
 import * as usersSelectors from 'store/users/selectors'
 import { User } from 'types'
-import { filterByQuery, normalizeString } from 'utils/strings'
+import { filterByQuery } from 'utils/strings'
 import { renderBottomElement } from './helpers'
 
 const UserDetail = React.lazy(() => import('components/UserDetail'))
@@ -83,7 +83,7 @@ const Main = () => {
 
   const onSearch = useCallback(
     (query: string) => {
-      dispatch(usersActions.setQuery(normalizeString(query)))
+      dispatch(usersActions.setQuery(query))
     },
     [dispatch],
   )

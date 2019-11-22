@@ -12,6 +12,6 @@ export const normalizeString = (str: string) => {
 export const filterByQuery = (query: string) => {
   return (user: User) => {
     const searchable = normalizeString(`${user.name.first} ${user.name.last}`)
-    return searchable.includes(query)
+    return searchable.includes(normalizeString(query))
   }
 }
