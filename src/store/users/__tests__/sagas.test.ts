@@ -16,7 +16,7 @@ it('Users saga flow: start->bottom->idle->bottom should result in 0/0->50/0->50/
   const limit = usersSelectors.limit(initialState)
   const nationalities = settingsSelectors.nationalities(initialState)
 
-  const fetchUsersResponse = (page: number = 1) => {
+  const fetchUsersResponse = (page = 1) => {
     usersFixtures.response.info.page = page
     return usersFixtures.response
   }

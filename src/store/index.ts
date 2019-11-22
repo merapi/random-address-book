@@ -3,15 +3,15 @@ import createSagaMiddleware from 'redux-saga'
 import rootReducer from './rootReducer'
 import rootSaga from './rootSaga'
 
-let sagaOptions = {}
-
-const sagaMiddleware = createSagaMiddleware(sagaOptions)
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(sagaMiddleware),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ ? (window as any).__REDUX_DEVTOOLS_EXTENSION__() : compose,
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__
+      ? (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      : compose,
   ),
 )
 

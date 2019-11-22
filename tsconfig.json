@@ -15,9 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "downlevelIteration": true,
-    "jsx": "react",
-    "typeRoots": ["./support"],
-    "types": ["cypress", "@types/testing-library__cypress"]
+    "jsx": "react"
     // "noUnusedLocals": true,
     // "noUnusedPar, "setupTest.js"ameters": true
   },

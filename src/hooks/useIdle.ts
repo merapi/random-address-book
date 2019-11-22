@@ -13,7 +13,7 @@ const oneMinute = 60e3
 
 const useIdle = (
   ms: number = oneMinute,
-  initialState: boolean = false,
+  initialState = false,
   events: string[] = defaultEvents,
 ): boolean => {
   const [state, setState] = useState<boolean>(initialState)

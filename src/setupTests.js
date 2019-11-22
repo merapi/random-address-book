@@ -1,3 +1,4 @@
+/* eslint-disable */
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   observe() {

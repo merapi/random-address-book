@@ -23,7 +23,9 @@ type UnwrapReturnType<R> = R extends SagaGenerator<infer RT>
   ? PromiseValue
   : R
 
-export function* take<A extends Action>(pattern?: ActionPattern<A>): SagaGenerator<A> {
+export function* take<A extends Action>(
+  pattern?: ActionPattern<A>,
+): SagaGenerator<A> {
   return yield rawTake(pattern)
 }
 
@@ -43,7 +45,9 @@ export function* select<Args extends any[], R>(
   selector?: (state: any, ...args: Args) => R,
   ...args: Args
 ): SagaGenerator<R> {
-  return selector ? yield rawSelect(selector as any, ...args) : yield rawSelect()
+  return selector
+    ? yield rawSelect(selector as any, ...args)
+    : yield rawSelect()
 }
 
 export function* cancelled(): SagaGenerator<boolean> {
@@ -54,9 +58,13 @@ export function* put<T extends Action>(action: T): SagaGenerator<T> {
   return yield rawPut(action)
 }
 
-export function race<T extends object>(effects: T): SagaGenerator<{ [P in keyof T]?: UnwrapReturnType<T[P]> }>
+export function race<T extends object>(
+  effects: T,
+): SagaGenerator<{ [P in keyof T]?: UnwrapReturnType<T[P]> }>
 export function race<T>(effects: T[]): SagaGenerator<UnwrapReturnType<T>>
-export function* race<T extends object>(effects: T): SagaGenerator<{ [P in keyof T]?: UnwrapReturnType<T[P]> }> {
+export function* race<T extends object>(
+  effects: T,
+): SagaGenerator<{ [P in keyof T]?: UnwrapReturnType<T[P]> }> {
   return yield rawRace(effects as any)
 }
 

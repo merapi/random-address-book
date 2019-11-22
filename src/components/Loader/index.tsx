@@ -1,5 +1,11 @@
 import { Color, Spacing } from 'design'
-import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react'
+import React, {
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -8,7 +14,7 @@ interface Props {
 }
 
 const BareLoader = ({ className, withOuter }: Props) => {
-  let jsx = []
+  const jsx = []
   const [smallIsVisible, setSmallIsVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 

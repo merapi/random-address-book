@@ -111,7 +111,7 @@ function* watchIdle() {
 }
 
 export default function*() {
-  yield fork(watchIdle)
   yield takeLatest(SettingsActionsConsts.SET_NATIONALITIES, resetUsers)
+  yield fork(watchIdle)
   yield fork(watchBottomVisited)
 }
