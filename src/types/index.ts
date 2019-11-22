@@ -1,6 +1,8 @@
 export interface User {
   picture: {
     thumbnail: string
+    medium: string
+    large: string
   }
   name: {
     first: string

@@ -19,7 +19,7 @@
     "typeRoots": ["./support"],
     "types": ["cypress", "@types/testing-library__cypress"]
     // "noUnusedLocals": true,
-    // "noUnusedParameters": true
+    // "noUnusedPar, "setupTest.js"ameters": true
   },
   "include": ["src"]
 }

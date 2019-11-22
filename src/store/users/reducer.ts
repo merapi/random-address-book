@@ -1,6 +1,6 @@
 import { UsersActions, UsersActionsConsts, UsersState } from './types'
 
-const initialState: UsersState = {
+export const initialState: UsersState = {
   isLoading: false,
   isEnd: false,
   error: null,

@@ -1,11 +1,5 @@
 import { Color, Spacing } from 'design'
-import React, {
-  RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -21,7 +15,6 @@ const BareLoader = ({ className, withOuter }: Props) => {
   const loaderOvserved = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       if (entries.length && entries[0].target === ref.current) {
-        console.log(entries[0].isIntersecting)
         setSmallIsVisible(!entries[0].isIntersecting)
       }
     },

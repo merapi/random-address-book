@@ -15,8 +15,8 @@ type Props = BaseProps & User
 const Details = ({ className, picture, name, email }: Props) => (
   <>
     <Row alignItems={FlexAlign.Center}>
-      {/* <Avatar width={48} src={`${picture.thumbnail}?r=${email}`} /> */}
-      <Avatar width={48} src={picture.thumbnail} />
+      {/* <Avatar width={48} src={`${picture.medium}?r=${email}`} /> */}
+      <Avatar width={48} src={picture.medium} />
       <Div marginLeft={Spacing.Base}>
         <Title marginBottom={Spacing.Tiny}>
           {name.first} {name.last}

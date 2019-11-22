@@ -36,7 +36,7 @@ const Main = () => {
   const query = useSelector(usersSelectors.query)
   const inSearchMode = Boolean(query)
   const nextPagePrefetched = useSelector(usersSelectors.nextPageUsers)
-  const isIdling = useIdle(1000 * 2)
+  const isIdling = useIdle(1000 * 5)
 
   const bottomObserved = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -51,10 +51,10 @@ const Main = () => {
 
   useEffect(() => {
     // We only use idle detection for one time next page prefetch - don't spam redux
-    if (isIdling && !isEnd && !nextPagePrefetched) {
+    if (isIdling && !isEnd && !nextPagePrefetched && !isLoading) {
       dispatch(usersActions.idleDetected())
     }
-  }, [isIdling, isEnd, nextPagePrefetched, dispatch])
+  }, [isIdling, isEnd, isLoading, nextPagePrefetched, dispatch])
 
   useEffect(() => {
     const target = bottomIndicator.current
