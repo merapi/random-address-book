@@ -7,7 +7,7 @@ context('Main page', () => {
 
   it('Renders search bar with text', () => {
     cy.visit('/')
-    cy.findByPlaceholderText(/type to search/i)
+    cy.findByPlaceholderText(/type to filter/i)
   })
 
   it('Show modal when card is clicked, then close it', () => {
@@ -34,7 +34,7 @@ context('Main page', () => {
   })
 
   it('After non-existent user search we should see no cards', () => {
-    cy.findByPlaceholderText(/type to search/i)
+    cy.findByPlaceholderText(/type to filter/i)
       .as('search')
       .type('thisoneshouldnotbefound')
       .findAllByTestId(/^nat-/)
@@ -42,7 +42,7 @@ context('Main page', () => {
   })
 
   it('Should show back cards after pressing ESC', () => {
-    cy.findByPlaceholderText(/type to search/i)
+    cy.findByPlaceholderText(/type to filter/i)
       .type('{esc}')
       .findAllByTestId(/^nat-/)
       .should('have.length', 100)

@@ -34,7 +34,7 @@ const BareSearchBar = ({ className, query, onSubmit }: Props) => {
         <SettingsIcon />
       </A>
       <Input
-        placeholder="Type to search, press Escape to clear."
+        placeholder="Type to filter, press Escape to clear."
         onChange={onChange}
         onKeyDown={onKeyDown}
         value={query}
